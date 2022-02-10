@@ -5,13 +5,11 @@ const TodoList = ({todos}) => {
 
     const element = todos.map((item) => {
         return (
-            <li><TodoListItem
-                label={item.label}
-                important={item.important}
-            /></li>
+            <li><TodoListItem {...item}/>
+            </li>
         )
     })
-    
+
     return (
         <ul>
             { element}
