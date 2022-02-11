@@ -1,11 +1,7 @@
 import React, {Component} from "react";
 import './todo-list-item.css';
 
-
-//we have to move 'important' from props into 'state'
-//to dynamically mark it on todo task
-//style is no longer needed as we update the style by class name
-
+//toggle state
 export default class TodoListItem extends Component {
     state = {
         done: false,
@@ -13,15 +9,21 @@ export default class TodoListItem extends Component {
     };
 
     onLabelClick = () => {
-        this.setState({
-            done: true
-        });
-    };
+        this.setState(({done}) => {
+            return {
+                done: !done
+            }
+        })
+    }
+
+    ;
     onMarkImportant = () => {
-        this.setState({
-            important: true
-        });
-    };
+        this.setState(({important}) => {
+            return {
+                important: !important
+            }
+        })
+    }
 
     render() {
 
