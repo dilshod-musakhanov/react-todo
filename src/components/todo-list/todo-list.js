@@ -16,7 +16,7 @@ const TodoList = ({todos}) => {
 
     return (
         <ul className="list-group todo-list">
-            { element}
+            {element}
         </ul>
     )
 }
