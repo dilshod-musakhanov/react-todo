@@ -80,8 +80,15 @@ export default class App extends Component {
 
     render() {
 
-        const doneCount = this.state.todoData.filter((el) => el.done).length;
-        const todoCount = this.state.todoData.length - doneCount;
+        /*
+        in order not to repeat this.state.todoData many times
+        we create separate variable for it
+        const {todoData} = this.state;
+         */
+        const {todoData} = this.state;
+
+        const doneCount = todoData.filter((el) => el.done).length;
+        const todoCount = todoData.length - doneCount;
         return (
             <div className="todo-app">
                 <AppHeader toDo={todoCount} done={doneCount}/>
@@ -90,7 +97,7 @@ export default class App extends Component {
                     <ItemStatusFilter />
                 </div>
                 <TodoList
-                    todos={this.state.todoData}
+                    todos={todoData}
                     onDeleted={this.deleteItem}
                     onToggleImportant={this.onToggleImportant}
                     onToggleDone={this.onToggleDone}
