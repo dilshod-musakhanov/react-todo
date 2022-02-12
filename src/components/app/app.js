@@ -3,10 +3,12 @@ import AppHeader from "../app-header/app-header";
 import SearchPanel from "../search-panel/search-panel";
 import TodoList from "../todo-list/todo-list";
 import ItemStatusFilter from "../item-status-filter/item-status-filter";
-
+import ItemAddForm from "../item-add-form/item-add-form";
 import "./app.css";
 
 export default class App extends Component {
+
+    maxId = 100;
 
     state = {
         todoData: [
@@ -30,6 +32,34 @@ export default class App extends Component {
             };
         });
     };
+    addItem = (text) => {
+        //generate id
+
+        //add element in array
+        const newItem = {
+            label: text,
+            important: false,
+            id: this.maxId++
+        };
+
+        //add element in array
+        this.setState(({todoData}) => {
+            const newArr = [
+                ...todoData,
+                newItem
+            ];
+            return {
+                todoData: newArr
+            }
+        })
+    }
+
+    onToggleImportant = (id) => {
+        console.log('toggle important', id);
+    }
+    onToggleDone = (id) => {
+        console.log('toggle done', id);
+    }
 
     render() {
         return (
@@ -42,7 +72,12 @@ export default class App extends Component {
                 <TodoList
                     todos={this.state.todoData}
                     onDeleted={this.deleteItem}
+                    onToggleImportant={this.onToggleImportant}
+                    onToggleDone={this.onToggleDone}
                 />
+
+                <ItemAddForm
+                onItemAdded={this.addItem}/>
             </div>
         )
     }
