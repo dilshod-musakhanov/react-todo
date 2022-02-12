@@ -3,7 +3,7 @@ import './todo-list-item.css';
 
 //toggle state
 export default class TodoListItem extends Component {
-    
+
     render() {
 
         const {label, onDeleted, onToggleImportant, onToggleDone,done, important} = this.props;
