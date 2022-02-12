@@ -41,7 +41,6 @@ export default class App extends Component {
         });
     };
     addItem = (text) => {
-        //add element in array
         const newItem = this.createTodoItem(text);
 
         //add element in array
@@ -56,17 +55,36 @@ export default class App extends Component {
         })
     }
 
-    onToggleImportant = (id) => {
-        console.log('toggle important', id);
-    }
     onToggleDone = (id) => {
+        this.setState(({todoData})=> {
+            const idx = todoData.findIndex((el) => el.id === id);
+
+            //1.update obj
+            const oldItem = todoData[idx];
+            const newItem = {...oldItem, done: !oldItem.done};
+
+            //2.construct new array
+            const newArray = [
+                ...todoData.slice(0, idx),
+                newItem,
+                ...todoData.slice(idx + 1)
+            ];
+            return {
+                todoData: newArray
+            };
+        })
+    }
+    onToggleImportant = (id) => {
         console.log('toggle done', id);
     }
 
     render() {
+
+        const doneCount = this.state.todoData.filter((el) => el.done).length;
+        const todoCount = this.state.todoData.length - doneCount;
         return (
             <div className="todo-app">
-                <AppHeader toDo={1} done={3}/>
+                <AppHeader toDo={todoCount} done={doneCount}/>
                 <div className="top-panel d-flex">
                     <SearchPanel />
                     <ItemStatusFilter />
